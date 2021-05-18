@@ -52,7 +52,7 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => res.status(201).send({ email: user.email }))
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         throw new BadRequestError('Данные невалидны');
       }
       if (err.name === 'MongoError' || err.code === '11000') {

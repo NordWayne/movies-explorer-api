@@ -35,6 +35,7 @@ const createMovie = (req, res, next) => {
       if (err.name === 'ValidationError') {
         throw new BadRequestError('Данные невалидны');
       }
+      throw err;
     })
     .catch(next);
 };
@@ -50,7 +51,7 @@ const deleteMovie = (req, res, next) => {
       if (!movie || movie.owner.toString() !== req.user._id) {
         throw new NotFoundError('Фильм с таким id не найден');
       }
-      Movie.findByIdAndDelete(req.params.movieId)
+      movie.remove()
         .then(() => {
           res.send({ message: 'Этот фильм удалён' });
         })

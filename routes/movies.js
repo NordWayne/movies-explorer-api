@@ -32,7 +32,7 @@ routerMovies.post('/movies', celebrate({
       }
       return helpers.message('Поле должно быть ссылкой');
     }),
-    movieId: Joi.string().required(),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
@@ -41,7 +41,7 @@ routerMovies.post('/movies', celebrate({
 routerMovies.get('/movies', getMovies);
 routerMovies.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().length(24).hex(),
+    movieId: Joi.string().length(24).hex().required(),
   }),
 }), deleteMovie);
 
